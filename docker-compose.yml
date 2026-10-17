@@ -1,0 +1,53 @@
+# ==============================================================================
+# Docker Compose — CuidaPerto (Execução Local Segura)
+# ==============================================================================
+
+services:
+  # Serviço da Aplicação Node.js
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cuidaperto-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    networks:
+      - cuidaperto-net
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # Proxy Reverso NGINX
+  web:
+    image: nginx:1.27-alpine
+    container_name: cuidaperto-nginx
+    restart: unless-stopped
+    # Vinculação estrita a 127.0.0.1 para impedir exposição à internet/rede local
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - cuidaperto-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+# Rede interna privada para comunicação entre contêineres
+networks:
+  cuidaperto-net:
+    driver: bridge
+    name: cuidaperto-net

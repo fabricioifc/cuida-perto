@@ -1,0 +1,121 @@
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav aria-label="Trilha de navegação">
+      <ol class="breadcrumb">
+        <li><a href="/">Início</a></li>
+        <li><a href="/search">Cuidadores</a></li>
+        <li aria-current="page"><%= caregiver.name %></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<article class="profile-detail-section" aria-labelledby="profile-title">
+  <div class="container">
+    <!-- Aviso legal obrigatório posicionado no topo para total transparência -->
+    <%- include('../partials/disclaimer-box') %>
+
+    <div class="profile-header-card">
+      <div class="profile-avatar-column">
+        <img 
+          src="<%= caregiver.photoUrl %>" 
+          alt="Foto de perfil de <%= caregiver.name %>" 
+          class="profile-avatar-lg"
+          onerror="this.src='/img/caregivers/default.svg'"
+        >
+        <% if (caregiver.isDemo) { %>
+          <span class="demo-tag-lg">Perfil Demonstrativo (Mock)</span>
+        <% } %>
+      </div>
+
+      <div class="profile-summary-column">
+        <h1 id="profile-title" class="profile-name"><%= caregiver.name %></h1>
+        <p class="profile-location">
+          <span aria-hidden="true">📍</span> <strong>Atendimento:</strong> <%= caregiver.city %> - <%= caregiver.state %>
+        </p>
+        <% if (caregiver.neighborhoods && caregiver.neighborhoods.length > 0) { %>
+          <p class="profile-neighborhoods">
+            <span class="meta-label">Bairros de cobertura declarados:</span>
+            <%= caregiver.neighborhoods.join(', ') %>
+          </p>
+        <% } %>
+
+        <div class="profile-pricing-highlight">
+          <span class="meta-label">Valores pretendidos (autodeclarados):</span>
+          <p class="price-highlight"><%= caregiver.pricingDescription %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-grid-details">
+      <div class="profile-main-info">
+        <section class="detail-card" aria-labelledby="sec-experience">
+          <h2 id="sec-experience" class="detail-card-title">
+            <span aria-hidden="true">📋</span> Experiência Declarada pelo Profissional
+          </h2>
+          <p class="detail-text"><%= caregiver.declaredExperience %></p>
+        </section>
+
+        <section class="detail-card" aria-labelledby="sec-modalities">
+          <h2 id="sec-modalities" class="detail-card-title">
+            <span aria-hidden="true">⏱️</span> Modalidades de Atendimento
+          </h2>
+          <ul class="modality-list-detailed">
+            <% caregiver.modalities.forEach(function(mod) { %>
+              <li class="modality-item-detailed">
+                <span class="check-icon" aria-hidden="true">✓</span> <%= mod %>
+              </li>
+            <% }); %>
+          </ul>
+        </section>
+
+        <section class="detail-card" aria-labelledby="sec-courses">
+          <h2 id="sec-courses" class="detail-card-title">
+            <span aria-hidden="true">🎓</span> Cursos e Capacitações Informadas
+          </h2>
+          <p class="detail-hint">Informações autodeclaradas pelo cuidador:</p>
+          <% if (caregiver.declaredCourses && caregiver.declaredCourses.length > 0) { %>
+            <ul class="courses-list">
+              <% caregiver.declaredCourses.forEach(function(course) { %>
+                <li class="course-item">
+                  <span class="bullet-icon" aria-hidden="true">▪</span> <%= course %>
+                </li>
+              <% }); %>
+            </ul>
+          <% } else { %>
+            <p class="empty-note">Nenhum curso complementar informado pelo profissional.</p>
+          <% } %>
+        </section>
+
+        <section class="detail-card" aria-labelledby="sec-availability">
+          <h2 id="sec-availability" class="detail-card-title">
+            <span aria-hidden="true">📅</span> Disponibilidade Indicativa
+          </h2>
+          <p class="detail-text"><%= caregiver.availability %></p>
+        </section>
+      </div>
+
+      <aside class="profile-action-column" aria-labelledby="contact-box-title">
+        <div class="contact-action-box">
+          <h2 id="contact-box-title" class="action-box-title">Deseja solicitar contato?</h2>
+          <p class="action-box-desc">
+            No CuidaPerto, o contato direto (telefone/WhatsApp) só é compartilhado após o cuidador aceitar sua solicitação.
+          </p>
+
+          <div class="contact-alert-notice" role="note">
+            <span class="alert-icon" aria-hidden="true">🔒</span>
+            <p><strong>Privacidade Garantida:</strong> Seus dados não ficam expostos publicamente.</p>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-block btn-lg" onclick="alert('A funcionalidade de envio de solicitação com login de famílias será habilitada no próximo incremento!')">
+            Solicitar Contato com <%= caregiver.name.split(' ')[0] %>
+          </button>
+
+          <a href="/search" class="btn btn-outline btn-block mt-3">
+            ← Voltar para a busca
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,64 @@
+<%
+  const flashErrors = typeof flash !== 'undefined' ? flash.error : [];
+  const flashSuccess = typeof flash !== 'undefined' ? flash.success : [];
+  const fd = typeof formData !== 'undefined' ? formData : {};
+%>
+<section class="auth-section" aria-labelledby="login-heading">
+  <div class="auth-card">
+    <h1 id="login-heading" class="auth-title">Entrar na conta</h1>
+    <p class="auth-subtitle">Acesse sua conta CuidaPerto</p>
+
+    <%- include('../../partials/flash-messages') %>
+
+    <form
+      action="/auth/login"
+      method="POST"
+      class="auth-form"
+      novalidate
+      aria-label="Formulário de login"
+    >
+      <div class="form-group">
+        <label for="email" class="form-label">
+          E-mail <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          value="<%= fd.email || '' %>"
+          autocomplete="email"
+          required
+          aria-required="true"
+          aria-describedby="email-hint"
+        >
+        <span id="email-hint" class="form-hint">Informe o e-mail cadastrado</span>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Senha <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          autocomplete="current-password"
+          required
+          aria-required="true"
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+    </form>
+
+    <div class="auth-links" role="navigation" aria-label="Opções de cadastro">
+      <p>Não tem conta?
+        <a href="/auth/cadastro/familia">Cadastre-se como Família</a>
+        ou
+        <a href="/auth/cadastro/cuidador">Cadastre-se como Cuidador</a>
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CuidaPerto — Conectando famílias a cuidadores qualificados de pessoas idosas com transparência, humanização e segurança.">
+  <title><%= typeof title !== 'undefined' ? `${title} | CuidaPerto` : 'CuidaPerto — Cuidado humanizado para pessoas idosas' %></title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <!-- Link de acessibilidade para navegação por teclado (WCAG 2.1 AA) -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <%- include('../partials/header') %>
+  <%- include('../partials/flash-messages') %>
+
+  <main id="main-content" tabindex="-1">
+    <%- body %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

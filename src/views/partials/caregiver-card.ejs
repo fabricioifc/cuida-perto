@@ -1,0 +1,51 @@
+<article class="caregiver-card" aria-labelledby="caregiver-<%= caregiver.id %>-name">
+  <div class="card-header">
+    <div class="card-avatar-wrapper">
+      <img 
+        src="<%= caregiver.photoUrl %>" 
+        alt="Foto profissional de <%= caregiver.name %>" 
+        class="card-avatar"
+        loading="lazy"
+        onerror="this.src='/img/caregivers/default.svg'"
+      >
+      <% if (caregiver.isDemo) { %>
+        <span class="demo-tag" title="Perfil demonstrativo com dados fictícios para teste">Demonstrativo</span>
+      <% } %>
+    </div>
+    <div class="card-title-group">
+      <h3 id="caregiver-<%= caregiver.id %>-name" class="card-name">
+        <a href="/cuidadores/<%= caregiver.id %>"><%= caregiver.name %></a>
+      </h3>
+      <p class="card-location">
+        <span class="icon-location" aria-hidden="true">📍</span>
+        <%= caregiver.city %> - <%= caregiver.state %>
+      </p>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-modalities" aria-label="Modalidades de atendimento">
+      <span class="meta-label">Modalidades:</span>
+      <ul class="modality-tags">
+        <% caregiver.modalities.forEach(function(mod) { %>
+          <li class="modality-tag"><%= mod %></li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <div class="card-pricing">
+      <span class="meta-label">Remuneração pretendida:</span>
+      <p class="price-value"><%= caregiver.pricingDescription %></p>
+    </div>
+
+    <p class="card-experience-excerpt">
+      <%= caregiver.declaredExperience.length > 130 ? caregiver.declaredExperience.substring(0, 130) + '...' : caregiver.declaredExperience %>
+    </p>
+  </div>
+
+  <div class="card-footer">
+    <a href="/cuidadores/<%= caregiver.id %>" class="btn btn-outline" aria-label="Ver detalhes do perfil de <%= caregiver.name %>">
+      Ver Perfil Completo
+    </a>
+  </div>
+</article>

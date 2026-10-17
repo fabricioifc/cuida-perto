@@ -1,0 +1,102 @@
+<section class="hero-section" aria-labelledby="hero-title">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <h1 id="hero-title" class="hero-title">
+        Cuidado e respeito para quem dedicou a vida a cuidar de você.
+      </h1>
+      <p class="hero-subtitle">
+        Conecte sua família a cuidadores qualificados de pessoas idosas. Consulte disponibilidade declarada, valores e modalidades com total transparência.
+      </p>
+
+      <div class="search-box-card">
+        <form action="/search" method="GET" class="search-form" role="search" aria-label="Busca de cuidadores">
+          <div class="form-group">
+            <label for="search-city" class="form-label">
+              <span class="label-icon" aria-hidden="true">📍</span> Cidade ou Região
+            </label>
+            <input 
+              type="text" 
+              id="search-city" 
+              name="city" 
+              placeholder="Ex: São Paulo, Campinas, Santos..." 
+              class="form-control"
+              aria-describedby="city-hint"
+            >
+            <span id="city-hint" class="form-hint">Digite a cidade onde o idoso reside</span>
+          </div>
+
+          <div class="form-group">
+            <label for="search-modality" class="form-label">
+              <span class="label-icon" aria-hidden="true">⏱️</span> Modalidade de Atendimento
+            </label>
+            <select id="search-modality" name="modality" class="form-control">
+              <option value="">Todas as modalidades</option>
+              <% modalities.forEach(function(mod) { %>
+                <option value="<%= mod %>"><%= mod %></option>
+              <% }); %>
+            </select>
+            <span class="form-hint">Escolha o formato do plantão ou rotina</span>
+          </div>
+
+          <div class="form-action">
+            <button type="submit" class="btn btn-primary btn-block">
+              <span aria-hidden="true">🔍</span> Buscar Cuidadores
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="featured-title" class="section-title">Cuidadores em Destaque</h2>
+      <p class="section-subtitle">
+        Conheça profissionais com disponibilidade para atendimento imediato.
+      </p>
+    </div>
+
+    <div class="caregiver-grid">
+      <% featuredCaregivers.forEach(function(caregiver) { %>
+        <%- include('../partials/caregiver-card', { caregiver: caregiver }) %>
+      <% }); %>
+    </div>
+
+    <div class="section-footer-action">
+      <a href="/search" class="btn btn-secondary">
+        Ver Todos os Cuidadores Disponíveis
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="how-it-works-section" aria-labelledby="how-it-works-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="how-it-works-title" class="section-title">Como Funciona o CuidaPerto</h2>
+      <p class="section-subtitle">Um caminho simples, transparente e ético para o cuidado do seu familiar.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number" aria-hidden="true">1</div>
+        <h3 class="step-title">Pesquise por Localidade</h3>
+        <p class="step-desc">Filtre profissionais que atendem a sua cidade e bairros próximos, na modalidade que a rotina do idoso exige.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number" aria-hidden="true">2</div>
+        <h3 class="step-title">Analise o Perfil Declarado</h3>
+        <p class="step-desc">Consulte a experiência, cursos informados, disponibilidade semanal e estimativas de remuneração pretendida.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number" aria-hidden="true">3</div>
+        <h3 class="step-title">Conexão Segura</h3>
+        <p class="step-desc">Envie sua solicitação. Os telefones diretos de contato mútuo são liberados de forma segura após o aceite do profissional.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+<section class="search-header-bar">
+  <div class="container">
+    <h1 class="page-title">Buscar Cuidadores de Idosos</h1>
+    <p class="page-subtitle">Encontre cuidadores que atendem na sua localidade e modalidade necessária.</p>
+
+    <div class="search-refine-box">
+      <form action="/search" method="GET" class="search-inline-form" role="search">
+        <div class="form-group form-group-grow">
+          <label for="filter-city" class="sr-only">Cidade</label>
+          <input 
+            type="text" 
+            id="filter-city" 
+            name="city" 
+            value="<%= query.city || '' %>" 
+            placeholder="Digite a cidade..." 
+            class="form-control"
+          >
+        </div>
+
+        <div class="form-group form-group-grow">
+          <label for="filter-modality" class="sr-only">Modalidade de Atendimento</label>
+          <select id="filter-modality" name="modality" class="form-control">
+            <option value="">Todas as modalidades</option>
+            <% modalities.forEach(function(mod) { %>
+              <option value="<%= mod %>" <%= query.modality === mod ? 'selected' : '' %>><%= mod %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <span aria-hidden="true">🔍</span> Filtrar
+        </button>
+
+        <% if (query.city || query.modality) { %>
+          <a href="/search" class="btn btn-outline" title="Limpar todos os filtros">Limpar Filtros</a>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="search-results-section">
+  <div class="container">
+    <div class="results-meta" aria-live="polite">
+      <% if (caregivers.length > 0) { %>
+        <p class="results-count">
+          <strong><%= caregivers.length %></strong> <%= caregivers.length === 1 ? 'cuidador encontrado' : 'cuidadores encontrados' %>
+          <% if (query.city) { %> para <em>"<%= query.city %>"</em><% } %>
+          <% if (query.modality) { %> na modalidade <em>"<%= query.modality %>"</em><% } %>
+        </p>
+      <% } %>
+    </div>
+
+    <% if (caregivers.length > 0) { %>
+      <div class="caregiver-grid">
+        <% caregivers.forEach(function(caregiver) { %>
+          <%- include('../partials/caregiver-card', { caregiver: caregiver }) %>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty-state-card" role="status" aria-label="Nenhum resultado encontrado">
+        <div class="empty-state-icon" aria-hidden="true">🔎</div>
+        <h2 class="empty-state-title">Nenhum cuidador encontrado com estes critérios</h2>
+        <p class="empty-state-desc">
+          Não localizamos nenhum cuidador cadastrado para 
+          <% if (query.city) { %> a cidade <strong>"<%= query.city %>"</strong><% } %>
+          <% if (query.city && query.modality) { %> e <% } %>
+          <% if (query.modality) { %> modalidade <strong>"<%= query.modality %>"</strong><% } %>.
+        </p>
+        <div class="empty-state-suggestions">
+          <p><strong>Sugestões:</strong></p>
+          <ul>
+            <li>Verifique se o nome da cidade foi digitado corretamente;</li>
+            <li>Tente buscar por uma cidade vizinha de maior porte (ex: <em>São Paulo, Campinas, Santos</em>);</li>
+            <li>Remova o filtro de modalidade para visualizar todos os profissionais da região.</li>
+          </ul>
+        </div>
+        <div class="empty-state-action">
+          <a href="/search" class="btn btn-primary">Ver Todos os Cuidadores Cadastrados</a>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>

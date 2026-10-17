@@ -1,0 +1,27 @@
+<% if (typeof flash !== 'undefined') { %>
+  <% if (flash.error && flash.error.length > 0) { %>
+    <div class="alert alert-error" role="alert" aria-live="assertive">
+      <div class="container alert-content">
+        <span class="alert-icon" aria-hidden="true">⚠️</span>
+        <div class="alert-text">
+          <% flash.error.forEach(function(msg) { %>
+            <p><%= msg %></p>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+  <% if (flash.success && flash.success.length > 0) { %>
+    <div class="alert alert-success" role="status" aria-live="polite">
+      <div class="container alert-content">
+        <span class="alert-icon" aria-hidden="true">✅</span>
+        <div class="alert-text">
+          <% flash.success.forEach(function(msg) { %>
+            <p><%= msg %></p>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  <% } %>
+<% } %>

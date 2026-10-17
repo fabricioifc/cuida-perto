@@ -1,0 +1,99 @@
+<%
+  const fd = typeof formData !== 'undefined' ? formData : {};
+%>
+<section class="auth-section" aria-labelledby="register-family-heading">
+  <div class="auth-card">
+    <h1 id="register-family-heading" class="auth-title">Cadastro de Família</h1>
+    <p class="auth-subtitle">Crie sua conta para encontrar cuidadores qualificados</p>
+
+    <%- include('../../partials/flash-messages') %>
+
+    <form
+      action="/auth/cadastro/familia"
+      method="POST"
+      class="auth-form"
+      novalidate
+      aria-label="Formulário de cadastro de família"
+    >
+      <div class="form-group">
+        <label for="name" class="form-label">
+          Nome completo <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-input"
+          value="<%= fd.name || '' %>"
+          autocomplete="name"
+          required
+          aria-required="true"
+          minlength="2"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          E-mail <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          value="<%= fd.email || '' %>"
+          autocomplete="email"
+          required
+          aria-required="true"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Senha <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          autocomplete="new-password"
+          required
+          aria-required="true"
+          minlength="8"
+          aria-describedby="password-hint"
+        >
+        <span id="password-hint" class="form-hint">Mínimo de 8 caracteres</span>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">
+          Confirmar senha <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          class="form-input"
+          autocomplete="new-password"
+          required
+          aria-required="true"
+        >
+      </div>
+
+      <div class="form-notice" role="note">
+        <p>
+          <strong>Aviso (Dados de Demonstração):</strong>
+          Esta plataforma está em fase de testes. Não insira dados pessoais reais.
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Criar conta</button>
+    </form>
+
+    <div class="auth-links" role="navigation" aria-label="Acesso à conta">
+      <p>Já tem conta? <a href="/auth/login">Faça login</a></p>
+      <p>É cuidador? <a href="/auth/cadastro/cuidador">Cadastre-se aqui</a></p>
+    </div>
+  </div>
+</section>

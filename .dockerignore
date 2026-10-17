@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log*
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+coverage
+tests
+docs
+.agents
+*.md
+playwright-report
+test-results
+Dockerfile
+docker-compose.yml
+docker

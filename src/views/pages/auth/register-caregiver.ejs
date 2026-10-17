@@ -1,0 +1,100 @@
+<%
+  const fd = typeof formData !== 'undefined' ? formData : {};
+%>
+<section class="auth-section" aria-labelledby="register-caregiver-heading">
+  <div class="auth-card">
+    <h1 id="register-caregiver-heading" class="auth-title">Cadastro de Cuidador</h1>
+    <p class="auth-subtitle">Crie sua conta profissional e comece a ser encontrado por famílias</p>
+
+    <%- include('../../partials/flash-messages') %>
+
+    <form
+      action="/auth/cadastro/cuidador"
+      method="POST"
+      class="auth-form"
+      novalidate
+      aria-label="Formulário de cadastro de cuidador"
+    >
+      <div class="form-group">
+        <label for="name" class="form-label">
+          Nome completo <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-input"
+          value="<%= fd.name || '' %>"
+          autocomplete="name"
+          required
+          aria-required="true"
+          minlength="2"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          E-mail profissional <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          value="<%= fd.email || '' %>"
+          autocomplete="email"
+          required
+          aria-required="true"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Senha <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          autocomplete="new-password"
+          required
+          aria-required="true"
+          minlength="8"
+          aria-describedby="password-hint"
+        >
+        <span id="password-hint" class="form-hint">Mínimo de 8 caracteres</span>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">
+          Confirmar senha <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          class="form-input"
+          autocomplete="new-password"
+          required
+          aria-required="true"
+        >
+      </div>
+
+      <div class="form-notice" role="note">
+        <p>
+          <strong>Atenção:</strong> Após o cadastro, seu perfil passará por revisão antes
+          de aparecer nas buscas. Nenhuma qualificação ou certificação será atribuída
+          automaticamente — apenas informações que você mesmo fornecer e que sejam verificadas.
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Criar conta profissional</button>
+    </form>
+
+    <div class="auth-links" role="navigation" aria-label="Acesso à conta">
+      <p>Já tem conta? <a href="/auth/login">Faça login</a></p>
+      <p>É família? <a href="/auth/cadastro/familia">Cadastre-se aqui</a></p>
+    </div>
+  </div>
+</section>

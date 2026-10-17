@@ -1,0 +1,15 @@
+<section class="error-page-section">
+  <div class="container error-container">
+    <div class="error-card" role="alert">
+      <span class="error-code" aria-hidden="true" style="color: #dc2626;">403</span>
+      <h1 class="error-title"><%= title || 'Acesso Não Autorizado' %></h1>
+      <p class="error-message">
+        <%= typeof message !== 'undefined' ? message : 'Você não possui as permissões necessárias para acessar este recurso ou painel.' %>
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">Voltar para o Início</a>
+        <a href="/search" class="btn btn-outline">Buscar Cuidadores</a>
+      </div>
+    </div>
+  </div>
+</section>
